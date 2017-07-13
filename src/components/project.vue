@@ -41,14 +41,25 @@ export default {
         ]
     }
   },
+  props: {
+      scroll: {
+          type: Boolean
+      }
+  },
   methods: {
       scrollPage (event) {
-            if (event.deltaY < 0) {
-                window.history.go(-1)
-            } else if (event.deltaY > 0) {
-                this.$router.push('/about')
+            this.scroll = true
+            if (this.scroll) {
+                if (event.deltaY < 0) {
+                    window.history.go(-1)
+                } else if (event.deltaY > 0) {
+                    this.$router.push('/about')
+                }
             }
-        }
+            setTimeout(() => {
+                this.scroll = false
+            }, 1)
+      }
   }
 }
 </script>
@@ -60,7 +71,6 @@ export default {
   .title
     margin: 30px
     font-size: 60px
-    font-family:'jdfkongyibdc0e9f1b19a76'
     text-shadow: 1px 2px #FD851C, 2px 4px #aee2d9
     font-weight: 800
     color: #fff

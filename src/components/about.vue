@@ -12,7 +12,7 @@
             <h1 class="title">了解更多</h1>
             <ul>
                 <li v-for="item in detail" class="infos">
-                    <a :href="item[1]" class="link" target="_blank">
+                    <a :href="item[1]" class="link" :target="'_blank'">
                         <i class="iconfont" :class="item[0]"></i>
                     </a>
                 </li>
@@ -34,13 +34,24 @@ export default {
             info: ['西安邮电大学', '2018届', '本科', '女', '计算机科学与技术专业']
         }
     },
+    props: {
+        scroll: {
+            type: Boolean
+        }
+    },
     methods: {
         scrollPage (event) {
-            if (event.deltaY < 0) {
-                window.history.go(-1)
-            } else if (event.deltaY > 0) {
-                this.$router.push('/')
+            this.scroll = true
+            if (this.scroll) {
+                if (event.deltaY < 0) {
+                    window.history.go(-1)
+                } else if (event.deltaY > 0) {
+                    this.$router.push('/')
+                }
             }
+            setTimeout(() => {
+                this.scroll = false
+            }, 1)
         }
     }
 }

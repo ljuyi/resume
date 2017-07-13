@@ -21,18 +21,22 @@ export default {
   data () {
     return {
       position: 13,
-      // detail: ['phone number: 15829001421', 'github: https://github.com/ljuyi', 'blog: https://ljuyi.github.io', 'email: ljy981765731@163.com']
       detail: ['Any application that can be written in JavaScript,', 'will eventually be written in JavaScript.', " ———— Atwood's Law"]
+    }
+  },
+  props: {
+    scroll: {
+      type: Boolean
     }
   },
   mounted () {
     let text = this.$refs.text
     setTimeout(() => {
-        for (let j = 0; j < text.children.length; j++) {
-          for (let z = 0; z < text.children[j].children.length; z++) {
-            text.children[j].children[z].style.cssText = 'transform:translate3d(' + this.position * z + 'px, 0, 0);'
-          }
+      for (let j = 0; j < text.children.length; j++) {
+        for (let z = 0; z < text.children[j].children.length; z++) {
+          text.children[j].children[z].style.cssText = 'transform:translate3d(' + this.position * z + 'px, 0, 0);'
         }
+      }
     }, 0)
   },
   methods: {
@@ -43,11 +47,17 @@ export default {
       }
     },
     scrollPage (event) {
+      this.scroll = true
+      if (this.scroll) {
         if (event.deltaY < 0) {
-            window.history.go(-1)
+          window.history.go(-1)
         } else if (event.deltaY > 0) {
-            this.$router.push('/skills')
+          this.$router.push('/skills')
         }
+      }
+      setTimeout(() => {
+        this.scroll = false
+      }, 1)
     }
   }
 }
@@ -74,7 +84,7 @@ export default {
     margin-top: 20px
     ul
       width: 100%
-      font-family:'BradleyHandITCbdc09d81519a76'
+      font-family:'Courier New'
       font-size: 20px
       font-weight: 800
       .infos

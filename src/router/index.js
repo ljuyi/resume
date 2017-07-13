@@ -11,6 +11,7 @@ export default new Router({
   mode: 'history',
     // v-link激活时添加的class，默认是v-link-active
   linkActiveClass: 'active',
+  base: '/resumes/',
   routes: [
     {
       path: '/',

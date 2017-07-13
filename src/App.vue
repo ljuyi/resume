@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition :name="typeList[Math.floor(3*Math.random())]">
-      <router-view class="child-view"></router-view>  
+      <router-view class="child-view" :scroll="scroll"></router-view>  
     </transition>
   </div>
 </template>
@@ -11,6 +11,7 @@ export default {
   name: 'app',
   data () {
     return {
+      scroll: false,
       transType: 'slide',
       typeList: ['slide', 'move', 'rotate']
     }
@@ -27,7 +28,7 @@ export default {
   width: 100%;
   height: 100%;
   .child-view
-    transition: all 0.8s linear
+    transition: all 0.5s linear
     position: absolute
   .slide-enter
     opacity: 0
