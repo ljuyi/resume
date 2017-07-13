@@ -1,6 +1,6 @@
 <template>
   <div class="home" @wheel="scrollPage">
-    <img class="header" src="../assets/header.png" alt="" width="200" height="200">
+    <img class="header" src="http://osywktegp.bkt.clouddn.com/header.09ad098.png" alt="" width="200" height="200">
     <div class="name">
       <h1 class="title">
         李君怡
