@@ -47,8 +47,8 @@ export default {
       }
     },
     scrollPage (event) {
-      this.scroll = true
       if (this.scroll) {
+        this.$emit('toggleScroll', false)
         if (event.deltaY < 0) {
           window.history.go(-1)
         } else if (event.deltaY > 0) {
@@ -56,8 +56,8 @@ export default {
         }
       }
       setTimeout(() => {
-        this.scroll = false
-      }, 1)
+        this.$emit('toggleScroll', true)
+      }, 800)
     }
   }
 }

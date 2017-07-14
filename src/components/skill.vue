@@ -1,5 +1,5 @@
 <template>
-    <div class="skill" @wheel.once="scrollPage">
+    <div class="skill" @wheel="scrollPage">
         <div class="name">
             <h1 class="title">擅长技术</h1>
         </div>
@@ -56,8 +56,8 @@ export default {
     },
     methods: {
         scrollPage (event) {
-            this.scroll = true
             if (this.scroll) {
+                this.$emit('toggleScroll', false)
                 if (event.deltaY < 0) {
                     window.history.go(-1)
                 } else if (event.deltaY > 0) {
@@ -65,8 +65,8 @@ export default {
                 }
             }
             setTimeout(() => {
-                this.scroll = false
-            }, 1)
+                this.$emit('toggleScroll', true)
+            }, 800)
         }
     },
     mounted () {

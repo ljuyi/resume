@@ -48,8 +48,8 @@ export default {
   },
   methods: {
       scrollPage (event) {
-            this.scroll = true
             if (this.scroll) {
+                this.$emit('toggleScroll', false)
                 if (event.deltaY < 0) {
                     window.history.go(-1)
                 } else if (event.deltaY > 0) {
@@ -57,8 +57,8 @@ export default {
                 }
             }
             setTimeout(() => {
-                this.scroll = false
-            }, 1)
+                this.$emit('toggleScroll', true)
+            }, 800)
       }
   }
 }
@@ -89,6 +89,7 @@ export default {
           font-size: 24px
           color: rgba(255, 255, 255, 0.8)
           text-decoration: none
+          line-height: 35px
           &:hover
             color: #9f3
 </style>

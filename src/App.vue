@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition :name="typeList[Math.floor(3*Math.random())]">
-      <router-view class="child-view" :scroll="scroll"></router-view>  
+      <router-view class="child-view" :scroll="scroll" @toggleScroll="toggle"></router-view>  
     </transition>
   </div>
 </template>
@@ -11,9 +11,15 @@ export default {
   name: 'app',
   data () {
     return {
-      scroll: false,
+      scroll: true,
       transType: 'slide',
       typeList: ['slide', 'move', 'rotate']
+    }
+  },
+  methods: {
+    toggle (boo) {
+      this.scroll = boo
+      console.log(boo)
     }
   }
 }
