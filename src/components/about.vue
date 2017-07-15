@@ -13,13 +13,13 @@
                 <h1 class="title">了解更多</h1>
                 <ul>
                     <li v-for="item in detail" class="infos">
-                        <a :href="item[1]" class="link" :target="'_blank'">
+                        <a :href="item[1]" class="link" :target="'_blank'" ref="link">
                             <i class="iconfont" :class="item[0]"></i>
                         </a>
                     </li>
                 </ul>
             </div>
-            <a class="download" href="http://osywktegp.bkt.clouddn.com/%E8%A5%BF%E5%AE%89%E9%82%AE%E7%94%B5%E5%A4%A7%E5%AD%A6-%E6%9D%8E%E5%90%9B%E6%80%A1-%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%AE%9E%E4%B9%A0%E7%94%9F.pdf">下载简历</a>
+            <a class="download" href="http://osywktegp.bkt.clouddn.com/%E8%A5%BF%E5%AE%89%E9%82%AE%E7%94%B5%E5%A4%A7%E5%AD%A6-%E6%9D%8E%E5%90%9B%E6%80%A1-%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%AE%9E%E4%B9%A0%E7%94%9F.pdf" ref="download">下载简历</a>
         </div>
     </div>
 </template>
@@ -57,6 +57,20 @@ export default {
                 this.scrollPage({ deltaY: -1 })
             }
             event.preventDefault()
+        })
+        for (let i = 0; i < this.$refs.link.length; i++) {
+            this.$refs.link[i].addEventListener('touchend', (event) => {
+                let href = event.target.parentNode.getAttribute('href')
+                if (href.indexOf('mailto') >= 0) {
+                    alert('我的邮箱：' + href.slice(7))
+                } else {
+                    window.open(href)
+                }
+            })
+        }
+        this.$refs.download.addEventListener('touchend', (event) => {
+            let href = event.target.getAttribute('href')
+                window.open(href)
         })
     },
     methods: {

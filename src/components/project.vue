@@ -7,7 +7,7 @@
             <div class="body">
                 <ul>
                     <li v-for="project in projects">
-                        <a class="project-name" :href="project.link" target="_blank">{{project.title}}</a>
+                        <a ref="link" class="project-name" :href="project.link" target="_blank">{{project.title}}</a>
                         <p class="des">{{project.des}}</p>
                     </li>
                 </ul>
@@ -28,7 +28,7 @@ export default {
                 {
                     'title': '在线考试系统',
                     'des': '使用 vue + vuex + vue-router 重构',
-                    'link': 'https://github.com/ljuyi/exam-manage-system'
+                    'link': 'https://github.com/ljuyi/exam-system-manage'
                 },
                 {
                     'title': '消防管理系统微信端',
@@ -38,7 +38,7 @@ export default {
                 {
                     'title': 'chrome扩展程序',
                     'des': '给起始页增添一些色彩',
-                    'link': 'https://github.com/ljuyi/fireFight'
+                    'link': 'https://github.com/ljuyi/chrome-extension'
                 }
             ]
         }
@@ -65,6 +65,12 @@ export default {
             }
             event.preventDefault()
         })
+        for (let i = 0; i < this.$refs.link.length; i++) {
+            this.$refs.link[i].addEventListener('touchend', (event) => {
+                let href = event.target.getAttribute('href')
+                window.open(href)
+            })
+        }
     },
     methods: {
         scrollPage (event) {
