@@ -64,14 +64,11 @@ export default {
             if (this.scroll) {
                 this.$emit('toggleScroll', false)
                 if (event.deltaY < 0) {
-                    window.history.go(-1)
+                    this.$router.replace('/project')
                 } else if (event.deltaY > 0) {
-                    this.$router.push('/')
+                    this.$router.replace('/')
                 }
             }
-            setTimeout(() => {
-                this.$emit('toggleScroll', true)
-            }, 800)
         }
     }
 }

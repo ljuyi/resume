@@ -61,14 +61,11 @@ export default {
             if (this.scroll) {
                 this.$emit('toggleScroll', false)
                 if (event.deltaY < 0) {
-                    window.history.go(-1)
+                    this.$router.replace('/')
                 } else if (event.deltaY > 0) {
-                    this.$router.push('/project')
+                    this.$router.replace('/project')
                 }
             }
-            setTimeout(() => {
-                this.$emit('toggleScroll', true)
-            }, 800)
         }
     },
     mounted () {

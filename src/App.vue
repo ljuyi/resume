@@ -22,7 +22,11 @@ export default {
   methods: {
     toggle (boo) {
       this.scroll = boo
-      console.log(boo)
+      if (!this.scroll) {
+        setTimeout(() => {
+          this.scroll = true
+        }, 800)
+      }
     }
   },
   mounted () {

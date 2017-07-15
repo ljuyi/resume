@@ -68,14 +68,11 @@ export default {
       if (this.scroll) {
         this.$emit('toggleScroll', false)
         if (event.deltaY < 0) {
-          window.history.go(-1)
+          window.location.href = 'http://ljuyi.github.io'
         } else if (event.deltaY > 0) {
-          this.$router.push('/skills')
+          this.$router.replace('/skills')
         }
       }
-      setTimeout(() => {
-        this.$emit('toggleScroll', true)
-      }, 800)
     }
   }
 }
