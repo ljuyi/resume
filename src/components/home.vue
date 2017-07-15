@@ -1,17 +1,19 @@
 <template>
-  <div class="home" @wheel="scrollPage">
-    <img class="header" src="http://osywktegp.bkt.clouddn.com/header.09ad098.png" alt="" width="200" height="200">
-    <div class="name">
-      <h1 class="title">
-        李君怡
-      </h1>
-    </div>
-    <div class="info" ref="info">
-      <ul ref="text">
-        <li v-for="item in detail" class="infos" @click="linkTo(item)">
-          <span class="flyLetter" ref="letter" v-for="i in item" :style="{transform:'translate3d('+1500*(Math.random()-0.5)+'px,'+ 500*(Math.random()-0.5)+'px,'+ 1000*(Math.random()-0.5)+'px)'}">{{i}}</span>
-        </li>
-      </ul>
+  <div class="home" @wheel="scrollPage" ref="home">
+    <div class="content">
+      <img class="header" src="http://osywktegp.bkt.clouddn.com/header.09ad098.png" alt="" width="200" height="200">
+      <div class="name">
+        <h1 class="title">
+          李君怡
+        </h1>
+      </div>
+      <div class="info" ref="info">
+        <ul ref="text">
+          <li v-for="item in detail" class="infos" @click="linkTo(item)">
+            <span class="flyLetter" ref="letter" v-for="i in item" :style="{transform:'translate3d('+1500*(Math.random()-0.5)+'px,'+ 500*(Math.random()-0.5)+'px,'+ 1000*(Math.random()-0.5)+'px)'}">{{i}}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -20,8 +22,8 @@
 export default {
   data () {
     return {
-      position: 13,
-      detail: ['Any application that can be written in JavaScript,', 'will eventually be written in JavaScript.', " ———— Atwood's Law"]
+      position: 0.01,
+      detail: ['Any application that', 'can be written in JavaScript', 'will eventually be written in JavaScript.', " ———— Atwood's Law"]
     }
   },
   props: {
@@ -38,6 +40,22 @@ export default {
         }
       }
     }, 0)
+    let startX, endX, startY, endY
+    this.$refs.home.addEventListener('touchstart', (event) => {
+      startX = event.targetTouches[0].clientX
+      startY = event.targetTouches[0].clientY
+      event.preventDefault()
+    })
+    this.$refs.home.addEventListener('touchend', (event) => {
+      endX = event.changedTouches[0].clientX
+      endY = event.changedTouches[0].clientY
+      if (endX - startX < -30 || endY - startY < -60) {
+        this.scrollPage({deltaY: 1})
+      } else if (endX - startX > 30 || endY - startY > 60) {
+        this.scrollPage({deltaY: -1})
+      }
+      event.preventDefault()
+    })
   },
   methods: {
     linkTo (link) {
@@ -68,37 +86,41 @@ export default {
 .home
   width: 100%
   height: 100%
-  padding: 50px
+  padding: 1rem
   background: #839ACC;
-  .header
-    border-radius: 50%
-    border: 10px solid rgba(255, 255, 255, 0.7)
-  .title
-    margin-top: 20px
-    font-size: 55px
-    text-shadow: 1px 2px #839ACC, 2px 4px #aee2d9
-    font-weight: 800
-    color: #fff
-  .info
-    display: flex
-    margin-top: 20px
-    ul
-      width: 100%
-      font-family:'Courier New'
-      font-size: 20px
+  .content
+    height: 24rem
+    position: relative
+    top: 50%
+    margin-top: -12rem
+    .header
+      border-radius: 50%
+      border: 0.4rem solid rgba(255, 255, 255, 0.7)
+    .title
+      margin-top: 0.8rem
+      font-size: 1.5rem
+      text-shadow: 0.1rem 0.15rem #839ACC, 0.15rem 0.2rem #aee2d9
       font-weight: 800
-      .infos
-        position: relative
-        height: 30px
-        width: 50%
-        line-height: 30px
-        list-style: none
-        color: #fff
-        &:hover
-          color: #9f3
-        .flyLetter
-          display: inline-block
-          min-width: 8px
-          position: absolute
-          transition: all 1.5s;
+      color: #fff
+    .info
+      display: flex
+      margin-top: 1.5rem
+      ul
+        width: 100%
+        font-family:'Courier New'
+        font-size: 1.2rem
+        font-weight: 800
+        .infos
+          position: relative
+          height: 30px
+          line-height: 1.8rem
+          list-style: none
+          color: #fff
+          &:hover
+            color: #9f3
+          .flyLetter
+            display: inline-block
+            min-width: 0.4rem
+            transition: all 1.5s
+            font-size: 0.7rem
 </style>

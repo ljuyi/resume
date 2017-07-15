@@ -1,10 +1,12 @@
 <template>
-    <div class="skill" @wheel="scrollPage">
-        <div class="name">
-            <h1 class="title">擅长技术</h1>
-        </div>
-        <div class="body">
-            <div class="basic" ref="basic"></div>
+    <div class="skill" @wheel="scrollPage" ref="skill">
+        <div class="content">
+            <div class="name">
+                <h1 class="title">擅长技术</h1>
+            </div>
+            <div class="body">
+                <div class="basic" ref="basic"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -72,6 +74,22 @@ export default {
     mounted () {
         let mainChart = echarts.init(this.$refs.basic)
         mainChart.setOption(this.basic)
+        let startX, endX, startY, endY
+        this.$refs.skill.addEventListener('touchstart', (event) => {
+            startX = event.targetTouches[0].clientX
+            startY = event.targetTouches[0].clientY
+            event.preventDefault()
+        })
+        this.$refs.skill.addEventListener('touchend', (event) => {
+            endX = event.changedTouches[0].clientX
+            endY = event.changedTouches[0].clientY
+            if (endX - startX < -30 || endY - startY < -60) {
+                this.scrollPage({ deltaY: 1 })
+            } else if (endX - startX > 30 || endY - startY > 60) {
+                this.scrollPage({ deltaY: -1 })
+            }
+            event.preventDefault()
+        })
     }
 }
 </script>
@@ -80,15 +98,20 @@ export default {
   width: 100%
   height: 100%
   background: #87A461
-  .title
-    margin-top: 20px
-    font-size: 60px
-    text-shadow: 1px 2px #22c3aa, 2px 4px #aee2d9
-    font-weight: 800
-    color: #fff
-  .body
-    height: 80%
-    .basic
-      width: 100%
-      height: 100%
+  .content
+    height: 24rem
+    position: relative
+    top: 50%
+    margin-top: -12rem
+    .title
+      margin-top: 1.5rem
+      font-size: 2rem
+      text-shadow: 0.1rem 0.15rem #22c3aa, 0.15rem 0.2rem #aee2d9
+      font-weight: 800
+      color: #fff
+    .body
+      height: 80%
+      .basic
+        width: 100%
+        height: 100%
 </style>
